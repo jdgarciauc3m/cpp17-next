@@ -1,0 +1,23 @@
+\subsection{Especificaciones dinámicas de excepciones}
+
+\begin{frame}[t,fragile]{Especifando excepciones}
+\begin{itemize}
+  \item Las especificaciones dinámicas de excepciones están \textmark{despreciadas}
+        desde C++11.
+\vfill
+\begin{block}{Especificaciones de excepciones}
+\begin{lstlisting}
+void f() throw (std::logic_error);
+void g() throw();
+\end{lstlisting}
+\end{block}
+  \vfill\pause
+  \item Se eliminan en C++17
+\begin{block}{Especificaciones de excepciones}
+\begin{lstlisting}
+void f();
+void g() noexcept;
+\end{lstlisting}
+\end{block}
+\end{itemize}
+\end{frame}

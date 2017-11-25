@@ -1,0 +1,64 @@
+\subsection{Orden de evaluación}
+
+\begin{frame}[t,fragile]{Orden de evaluación}
+\begin{itemize}
+  \item Orden de evaluación de operandos en C++11:
+\begin{lstlisting}[basicstyle=\scriptsize]
+void f() {
+  std::string s = "but I have heard it works even if you don't believe in it";
+  s.replace(0, 4, "").replace(s.find("even"), 4, "only").replace(
+      s.find(" don't"), 6, "");
+  assert(s == "I have heard it works only if you believe in it");
+  //...
+}
+\end{lstlisting}
+
+  \vfill\pause
+  \item \textmark{Problema}:
+    \begin{itemize}
+      \item Encadenamiento de llamadas a funciones miembro.
+      \item Orden ejecución no definido en C++11.
+      \item Error en \emph{``The C++ Programming Language. 4 Ed.''}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Orden de evaluación}
+\begin{itemize}
+  \item Otro ejemplo en C++11:
+\begin{lstlisting}
+void f() {
+  std::map<int,int> v;
+  v[0] = v.size();
+  //...
+}
+\end{lstlisting}
+  \item \textmark{Resultado}:
+    \begin{itemize}
+      \item \cppid{\{0,0\}}.
+      \item \cppid{\{0,1\}}.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Fijando el orden en C++17}
+\begin{itemize}
+  \item Se fija el orden de evaluación en:
+    \begin{itemize}
+      \item \cppid{a.b}
+      \item \cppid{a->b}
+      \item \cppid{a->*b}
+      \item \cppid{a(b1,b2,b3)}
+      \item \cppid{b op= a}
+      \item \cppid{a[b]}
+      \item \cppid{a << b}
+      \item \cppid{a >> b}
+    \end{itemize}
+
+  \vfill\pause
+  \item Pero:
+    \begin{itemize}
+      \item No se define el orden de evaluación de argumentos de función.
+    \end{itemize}
+\end{itemize}
+\end{frame}

@@ -1,0 +1,22 @@
+\subsection{Valores opcionales}
+
+\begin{frame}[t,fragile]{Nueva clase \textbf{optional}}
+\begin{itemize}
+  \item Nuevo tipo \cppid{optional} para representar un valor que puede estar o no presente.
+\end{itemize}
+\begin{block}{Usando optional}
+\begin{lstlisting}
+std::optional<elemento> obten_elemento(int id) {
+  if (es_valido(id)) return elemento{id};
+  else return {};
+}
+
+void f(int id) {
+  auto e = obten_elemento;
+  if (e) cout << *e << endl;
+  else cout << "vacio" << endl;
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+

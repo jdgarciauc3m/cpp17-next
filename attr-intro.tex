@@ -1,0 +1,24 @@
+\subsection{Atributos en C++11/14}
+
+\begin{frame}[t,fragile]{Atributos}
+\begin{itemize}
+  \item Una manera portable de introducir anotaciones.
+    \begin{itemize}
+      \item Mejor que \cppkey{\_\_attribute\_\_}, \cppkey{\_\_declspec}, \ldots
+      \item No pueden tener efecto semántico.
+    \end{itemize}
+  \vfill\pause
+  \item Atributos existentes en C++11:
+    \begin{itemize}
+      \item \cppid{[[noreturn]]}.
+      \item \cppid{[[carries\_dependency]]}.
+      \item \cppkey{alignas}\cppid{(num)}.
+    \end{itemize}
+  \vfill\pause
+  \item Atributos añadidos en C++14:
+    \begin{itemize}
+      \item \cppid{[[deprecated]]}.
+      \item \cppid{[[deprecated("mensaje")]]}.
+    \end{itemize}
+\end{itemize}
+\end{frame}

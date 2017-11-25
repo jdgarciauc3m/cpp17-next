@@ -1,0 +1,39 @@
+\subsection{Deducción de valores en plantillas}
+
+\begin{frame}[t,fragile]{Valores como argumentos de plantilla}
+\begin{itemize}
+  \item Un argumento de plantilla puede ser un valor.
+\begin{lstlisting}
+template <int n>
+class table;
+
+table<10> t1; // n==10
+table<100> t2; // n==100
+\end{lstlisting}
+
+  \vfill\pause
+  \item Se puede generalizar el tipo del valor
+\begin{lstlisting}
+template <typename T, T n>
+class table;
+
+table<10> t1; // table<int,10>
+table<100UL> t2; // table<unsigned long, 100UL>
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Simplificando argumentos valor}
+\begin{itemize}
+  \item Se puede usar \cppkey{auto}:
+\begin{lstlisting}
+template <auto n>
+class table;
+
+table<10> t1; // decltype(n)=int, n=10
+table<100UL> t2; // decletype(n)=unsigned long, n=100UL
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+

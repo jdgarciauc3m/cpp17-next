@@ -1,0 +1,76 @@
+\subsection{Plegamiento de expresiones}
+
+\begin{frame}[t,fragile]{Sumando varios valores}
+\begin{itemize}
+  \item Una función genérica de suma:
+\begin{lstlisting}
+auto suma() { return 0; }
+
+template <typename T1>
+auto suma(T1 v1) { return v1; }
+
+template <typename T1, typename T2>
+auto suma(T1 v1, T2 v2) { return v1+v2; }
+
+template <typename T1, typename T2, typename T3>
+auto suma(T1 v1, T2 v2, T3 v3) { return v1+v2+v3; }
+
+//...
+
+void f() {
+  auto x = suma(1, 2.0);
+  auto y = suma(1L, 1.5f, 2LL);
+  //...
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Suma variádica}
+\begin{itemize}
+  \item Una función genérica de suma en C++11:
+\begin{lstlisting}
+auto suma() { return 0; }
+
+template <typename T1, typename ... Ts>
+auto suma(T1 x1, Ts ... xs) {
+  return x1 + suma(xs...);
+}
+
+void f() {
+  auto x = suma(1, 2.0);
+  auto y = suma(1L, 1.5f, 2LL);
+  //...
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Plegando expresiones}
+\begin{itemize}
+  \item En C++17 se puede aplicar plegamiento para algunos operadores.
+\begin{lstlisting}
+template <typename ... Ts>
+auto suma(Ts ... xs) { return (xs + ... + 0); }
+\end{lstlisting}
+  \vfill
+  \item o bien:
+\begin{lstlisting}
+template <typename ... Ts>
+auto suma(Ts ... xs) { return (... + xs); }
+\end{lstlisting}
+
+  \vfill\pause
+  \item Expresiones válidas:
+    \begin{itemize}
+      \item \cppid{(\ldots $\otimes$ args)} \quad $\rightarrow$ \quad 
+            $(\ldots((a_1 \otimes a_2) \otimes a_3) \otimes \ldots) \otimes a_n$
+      \item \cppid{(x $\otimes$ \ldots $\otimes$ args)} \quad $\rightarrow$ \quad
+            $(\ldots((x \otimes a_1) \otimes a_2) \otimes \ldots) \otimes a_n$
+      \item \cppid{(args $\otimes$ \ldots)} \quad $\rightarrow$ \quad
+            $a_1 \otimes (\ldots \otimes (a_{n-1} \otimes a_n))$ 
+      \item \cppid{(args $\otimes$ \ldots $\otimes$ x)} \quad $\rightarrow$ \quad
+            $a_1 \otimes (\ldots \otimes (a_{n-1} \otimes (a_n \otimes x)))$ 
+    \end{itemize}
+\end{itemize}
+\end{frame}

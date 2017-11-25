@@ -1,0 +1,28 @@
+\subsection{Valores generalizados}
+
+\begin{frame}[t,fragile]{Valores \textbf{any}}
+\begin{itemize}
+  \item Nuevo tipo \cppid{any} para representar un valor de \emph{cualquier} tipo.
+    \begin{itemize}
+      \item Es como un \cppkey{void*} seguro en tipos.
+    \end{itemize}
+\end{itemize}
+\begin{block}{Usando optional}
+\begin{lstlisting}
+void agrega_elemento(std::vector<std::any> & v, int id) {
+  if (es_valido_A(id)) v.push_back(elemento{id});
+  else if (es_valido_B(id)) v.push_back(compuesto{id});
+  else v.push_back(derivado{id});
+}
+
+void imprime_elementos(const std::vector<std::any> & v) {
+  for (auto & x : v) {
+    if (x.type() == typeid(elemento)) {
+      std::cout << x << std:: endl;
+    }
+  }
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
