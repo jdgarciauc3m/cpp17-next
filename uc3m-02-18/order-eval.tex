@@ -14,7 +14,7 @@ void f() {
 \end{lstlisting}
 
   \vfill\pause
-  \item \textmark{Problema}:
+  \item \textbad{Problema}:
     \begin{itemize}
       \item Encadenamiento de llamadas a funciones miembro.
       \item Orden ejecución no definido en C++11.
@@ -51,14 +51,14 @@ void f() {
       \item \cppid{a(b1,b2,b3)}
       \item \cppid{b op= a}
       \item \cppid{a[b]}
-      \item \cppid{a << b}
-      \item \cppid{a >> b}
+      \item \cppid{a <{}< b}
+      \item \cppid{a >{}> b}
     \end{itemize}
 
   \vfill\pause
   \item Pero:
     \begin{itemize}
-      \item No se define el orden de evaluación de argumentos de función.
+      \item \textbad{No se define el orden de evaluación de argumentos de función}.
     \end{itemize}
 \end{itemize}
 \end{frame}

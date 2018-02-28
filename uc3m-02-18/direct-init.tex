@@ -1,26 +1,27 @@
-\subsection{Reglas para iniciación}
+\subsection{Reglas para iniciación y auto}
 
 \begin{frame}[t,fragile]{Iniciación de lista}
 \begin{itemize}
-  \item C++11 introdujo la iniciación a partir de llaves.
-  \item Podía ser de dos tipos:
+  \item C++11 introdujo la \textgood{iniciación uniforme} y \cppkey{auto}.
+  \vfill\pause
+  \item Dos tipos de iniciación:
     \begin{itemize}
       \item \textenum{Iniciación de copia}:
 \begin{lstlisting}
-T x = {a, b, c}; // T es initializer_list<decltype(a)>
-U y = {a};       // U es initializer_list<decltype(a)> 
+auto x = {a, b, c}; // x es initializer_list<decltype(a)>
+auto y = {a};       // y es initializer_list<decltype(a)> 
 \end{lstlisting}
       \item \textenum{Iniciación directa}:
 \begin{lstlisting}
-T x {a, b, c}; // T es initializer_list<decltype(a)>
-U y {a};       // U es initializer_list<decltype(a)>, pero confuso
+auto x {a, b, c}; // x es initializer_list<decltype(a)>
+auto y {a};       // y es initializer_list<decltype(a)>, pero confuso
 \end{lstlisting}
     \end{itemize}
   \vfill\pause
   \item C++17 resuelve la confusión
 \begin{lstlisting}
-T x {a, b, c}; // T es initializer_list<decltype(a)>
-U y {a};       // U es decltype(a)
+auto x {a, b, c}; // x es initializer_list<decltype(a)>
+auto y {a};       // y es decltype(a)
 \end{lstlisting}
 \end{itemize}
 \end{frame}  

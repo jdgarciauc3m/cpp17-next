@@ -2,7 +2,7 @@
 
 \begin{frame}[t]{Eludiendo copias temporales}
 \begin{itemize}
-  \item El estándar \textmark{permite evitar} copias intermedias en algunso casos:
+  \item El estándar C++11 \textmark{permite evitar} copias intermedias en algunos casos:
     \begin{itemize}
       \item Cuando se inicia un objeto con otro objeto temporal.
       \item Cuando se devuelve una variable local.
@@ -13,6 +13,7 @@
     \begin{itemize}
       \item Es una optimización opcional.
       \item Hace falta definir constructores de copia por si el compilador no optimiza.
+      \item C++17 asegura la optimización
     \end{itemize}
 \end{itemize}
 \end{frame}
@@ -30,7 +31,7 @@ public:
 X make_x(int z) { return X{z}; }
 
 void f() {
-  auto a = make_x(10); // Sin copias
+  auto a = make_x(10); // Portable desde C++17
 }
 \end{lstlisting}
 \end{frame}
