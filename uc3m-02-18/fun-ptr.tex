@@ -1,0 +1,25 @@
+\subsection{Excepciones y punteros a función}
+
+\begin{frame}[t,fragile]{Especificaciones de excepción}
+\begin{itemize}
+  \item Las especificaciones de excepciones pasana a formar parte
+        del tipo de la función.
+\begin{lstlisting}
+  // p1_t y p2_t son dos tipos distintos
+  using p1_t = int(*)(char) noexcept;
+  using p2_t = int(*)(char);
+\end{lstlisting}
+\vfill\pause
+  \item Se puede convertir un valor de tipo puntero a excepción \cppkey{noexcept},
+        a un tipo punter a excepción.
+\begin{lstlisting}
+  int f(char);
+  int g(char) noexcept;
+  //...
+  p1_t p1f = f; // Error 
+  p1_t p1g = g; // OK 
+  p2_t p2f = f; // OK
+  p2_t p2g = g; // Conversión
+\end{lstlisting}
+\end{itemize}
+\end{frame}

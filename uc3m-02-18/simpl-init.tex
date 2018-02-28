@@ -1,0 +1,93 @@
+\subsection{Iniciación en {\bf if} y {\bf switch}}
+
+\begin{frame}[t,fragile]{Iniciación en \textbf{if}}
+\begin{itemize}
+  \item Se extiende la sintaxis de \cppkey{if} para introducir declaraciones de variable.
+\begin{lstlisting}
+if (init; cond) statement;
+\end{lstlisting}
+\end{itemize}
+
+\vfill\pause
+\begin{columns}[T]
+
+\column{.5\textwidth}
+\begin{block}{Antes}
+\begin{lstlisting}
+{
+  auto val = get_value();
+  if (val>0) {
+    f(val);
+  }
+  else throw invalid{}; 
+}
+\end{lstlisting}
+\end{block}
+
+\pause
+\column{.5\textwidth}
+\begin{block}{Después}
+\begin{lstlisting}
+if (auto val = get_value(); val>0) {
+  f(val);
+}
+else throw invalid{};
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[t,fragile]{Buscando en cadenas}
+\begin{block}{Antes}
+\begin{lstlisting}
+{
+  const auto it = texto.find("hola");
+  if (it != string::npos) {
+    cout << "Encontrado en posición "
+      << distance(text.begin(), it) << "\n"
+  }
+}
+\end{lstlisting}
+\end{block}
+
+\pause
+\begin{block}{Después}
+\begin{lstlisting}
+if (const auto it = texto.find("hola"); (it != string::npos) {
+  cout << "Encontrado en posición "
+    << distance(text.begin(), it) << "\n"
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[t,fragile]{Buscando en un mapa}
+\begin{itemize}
+  \item Se puede combinar con vinculaciones estructuradas.
+\end{itemize}
+\begin{lstlisting}
+std::map<int,std::string> m;
+//...
+if (auto & [it, encontrado] : m.insert(valor); encontrado) {
+  f(it);
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[t,fragile]{Iniciación en \textbf{switch}}
+\begin{itemize}
+  \item Funcionalidad extendida también a \cppkey{switch}:
+\end{itemize}
+\begin{lstlisting}
+switch (auto x = get_value(); x.status()) {
+  case abierto:
+    procesa_abierto(x);
+    break;
+  case cerrado:
+    procesa_cerrado(x);
+    break;
+}
+\end{lstlisting}
+\end{frame}

@@ -1,0 +1,74 @@
+\subsection{Otras modificaciones sobre atributos}
+
+\begin{frame}[t,fragile]{Atributos en nuevos lugares}
+\begin{itemize}
+  \item Se añaden atributos a nuevos elementos:
+    \begin{itemize}
+      \item Espacios de nombre:
+\begin{lstlisting}
+namespace [[deprecated]] mi_lib_anterior {
+  void f1();
+  //...
+}
+
+void g() {
+  mi_lib_anterior::f1(); // Warning: deprecated
+  //...
+}
+\end{lstlisting}
+
+      \item Enumeradores de un enumerado:
+\begin{lstlisting}
+enum modo {
+  apagado,
+  enciendiendo [[deprecated]],
+  encendido
+};	
+\end{lstlisting}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Atributos desconocidos ignorados}
+\begin{itemize}
+  \item Antes de C++17 un compilador podía dar un error para un atributo
+        que no reconocía (p.ej. de otro compilador):
+\begin{lstlisting}
+void f(void * p) {
+  [[gsl::supress("type")]]  // Solamente reconocido por clang-tidy
+  int * q = reinterpret_cast<int*>(p);
+  //...
+}
+\end{lstlisting}
+  \vfill
+  \item Ahora no puede dar un error.
+    \begin{itemize}
+      \item Aunque si un warning.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Espacios de nombre y atributos}
+\begin{itemize}
+  \item En C++11/14 los espacios de nombre de atributos deben cualificar
+        explícitamente cada atributo.
+\begin{lstlisting}
+void f(X x, Y y) {
+  [[rpr::kernel, rpr::target(cpu,gpu,fpga), rpr::in(x), rpr::out(y)]]
+  do_f(x,y);
+  //...
+}
+\end{lstlisting}
+
+  \vfill\pause
+  \item En C++17 se puede evitar la repetición:
+\begin{lstlisting}
+void f(X x, Y y) {
+  [[using rpr: kernel, target(cpu,gpu,fpga), in(x), out(y)]]
+  do_f(x,y);
+  //...
+}
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}

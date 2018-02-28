@@ -1,0 +1,82 @@
+\section{Acceso al sistema de ficheros}
+
+\begin{frame}[t]{Sistema de ficheros}
+\begin{itemize}
+  \item Ofrece una biblioteca portable para acceder al sistema de archivos.
+    \begin{itemize}
+      \item Archivo de cabecera \cppid{<filesystem>}.
+      \item Espacio de nombres \cppid{std::fileystem}.
+    \end{itemize}
+ 
+  \vfill\pause
+  \item Componentes:
+    \begin{itemize}
+      \item Gestión de \emph{paths}.
+      \item Gestion de directorios.
+      \item Recorrido de directorios.
+      \item Funciones de soporte.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Información de una ruta}
+\begin{lstlisting}
+void f(std::string path_name) {
+  using fs = std::filesystem;
+
+  fs::path mi_path{path_name};
+  cout << "exists() = " << fs::exists(mi_path) << "\n"
+    << "root_name() = " << mi_path.root_name() << "\n"
+    << "root_path() = " << mi_path.root_path() << "\n"
+    << "relative_path() = " << mi_path.relative_path() << "\n"
+    << "parent_path() = " << mi_path.parent_path() << "\n"
+    << "filename() = " << mi_path.filename() << "\n"
+    << "stem() = " << mi_path.stem() << "\n"
+    << "extension() = " << mi_path.extension() << "\n";
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[t,fragile]{Componiendo un path}
+\begin{itemize}
+  \item Operador \cppkey{/=}:
+\end{itemize}
+\begin{lstlisting}
+using fs = namespace std::filesystem;
+fs::path p{"/usr/include"};
+p /= "c++";
+p /= "7.2.0"
+p /= "iostream"
+\end{lstlisting}
+
+\vfill\pause
+\begin{itemize}
+  \item Operador \cppkey{+=}:
+\end{itemize}
+\begin{lstlisting}
+using fs = namespace std::filesystem;
+fs::path p{"/usr/include"};
+p += "c++";
+p += "7.2.0"
+p += "iostream"
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[t,fragile]{Recorriendo un path}
+\begin{lstlisting}(
+void f(std::filesystem::path & p) {
+  for (auto & x : p) {
+    cout << x << "\n";
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=terminal]
+usr
+include
+c++
+7.2.0
+iostream
+\end{lstlisting}
+\end{frame}
+

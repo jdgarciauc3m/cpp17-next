@@ -1,0 +1,23 @@
+\subsection{Vistas sobre cadenas}
+
+\begin{frame}[t,fragile]{\textbf{string\_view}}
+\begin{itemize}
+  \item Define un objeto que se refiere a una secuencia de caracteres
+        constante.
+    \begin{itemize}
+      \item Tiene una interfaz muy similar a \cppid{std::string}.
+    \end{itemize}
+\end{itemize}
+\begin{lstlisting}
+std::string_view sv1 = "hola";
+auto sv2 = "adios"sv;
+
+std::string s = "Daniel"
+std::string_view sv3 = s;
+
+std::cout << sv3 << std::endl;
+
+auto sv4 = "C++ mola";
+sv4 = sv4.substr(3);
+\end{lstlisting}
+\end{frame}

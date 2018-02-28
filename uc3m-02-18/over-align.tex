@@ -1,0 +1,26 @@
+\subsection{Memoria dinámica sobre-alineada}
+
+\begin{frame}[t,fragile]{\bf\texttt{new} y alineamiento}
+\begin{itemize}
+  \item En C++11/14 no hay garantías de alineamiento con \cppkey{new}.
+\begin{lstlisting}
+struct alignas(16) vec {
+  float val[4];
+};
+
+float * v = new vec[100];
+\end{lstlisting}
+
+  \vfill\pause
+  \item C++17 tiene en cuenta el alineamiento.
+\begin{lstlisting}
+void* operator new(size_t, align_val_t);
+void* operator new[](size_t, align_val_t);
+void operator delete(void*, align_val_t);
+void operator delete[](void*, align_val_t);
+void operator delete(void*, size_t, align_val_t);
+void operator delete[](void*, size_t, align_val_t);
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}

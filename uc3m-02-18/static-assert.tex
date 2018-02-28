@@ -1,0 +1,28 @@
+\subsection{\bf{\texttt{static\_assert}}}
+
+\begin{frame}[t,fragile]{Aserciones en tiempo de compiación}
+\begin{itemize}
+  \item C++11 introdujo las aserciones en tiempo de compilación.
+\begin{lstlisting}
+template <typename T>
+void f(T & x) {
+  static_assert(std::is_integral_v<T>, 
+      "T debe ser un tipo numérico integral");
+  //...
+}
+
+void g() {
+  f(5); // OK
+  f(1.0); // Error de compilación
+  // ...
+}
+\end{lstlisting}
+
+  \vfill\pause
+  \item C++17 hace el mensaje opcional.
+    \begin{itemize}
+      \item En muchos casos el mensaje por defecto es suficiente.
+      \item Evita tener que replicar el texto dos veces.
+    \end{itemize}
+\end{itemize}
+\end{frame}

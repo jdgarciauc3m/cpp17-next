@@ -1,0 +1,109 @@
+\subsection{Nuevos atributos}
+
+\begin{frame}[t,fragile]{Sentencias {\bf switch}}
+\begin{itemize}
+  \item Errores típicos en sentencias \cppkey{switch}:
+\begin{lstlisting}
+switch (estado) {
+  case modo::inicio:
+    procesa_inicio(); // ¿Paso intencionado a siguiente caso?
+  case modo::intermedio:
+    procesa_intermedio();
+    break;
+  case modo::fin:
+    procesa_fin(); // ¿Paso intencionado a siguiente caso?
+  default:
+    procesa_defecto();
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Mejorando {\bf switch}}
+\begin{itemize}
+  \item Fuerza a ser explícito sobre la intención con atributo \cppid{[[fallthrough]]}.
+\begin{lstlisting}
+switch (estado) {
+  case modo::inicio:
+    procesa_inicio(); // Warning: fallthrough implícito
+  case modo::intermedio:
+    procesa_intermedio();
+    break;
+  case modo::fin:
+    procesa_fin(); // OK: falltrhough explícito
+    [[fallthrough]];
+  default:
+    procesa_defecto();
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Ignorando resultados}
+\begin{itemize}
+  \item C++ permite ignorar el resultado de una función:
+\begin{lstlisting}
+int lee_bytes(std::ifstream & f, int n);
+//...
+void f(std::ifstream & fs) {
+  lee_bytes(fs, 100); // resultado ignorado
+  //...
+}
+\end{lstlisting}
+
+  \vfill\pause
+  \item Se pude forzar que no se pueda ignorar con \cppkey{[[nodiscard]]}:
+\begin{lstlisting}
+[[nodiscard]] int lee_bytes(std::ifstream & f, int n);
+//...
+void f(std::ifstream & fs) {
+  lee_bytes(fs, 100); // warning: resultado ignorado
+  int r = lee_bytes(fs, 50); // OK
+  //...
+}
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Tipos no descartables}
+\begin{itemize}
+  \item Se puede marcar un tipo como \textmark{no descartable}:
+\begin{lstlisting}
+[[nodiscard]] struct resultado {
+  int resultado;
+  string mensaje;
+};
+
+resultado haz_algo();
+
+void f() {
+  haz_algo(); // warning: resultado descartado
+  auto r = haz_algo(); // OK
+  //...
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Variables no usadas}
+\begin{itemize}
+  \item La mayoría de los compiladores emiten una advertencia si no 
+        se usa una variable.
+\begin{lstlisting}
+void f(int a, int b) { // warning: b no usado
+  int z = 0; // warning: z no usado 
+  return a *2;
+}
+\end{lstlisting}
+
+  \vfill\pause
+  \item Se puede expresar la intención con \cppkey{[[maybe\_unused]]}:
+\begin{lstlisting}
+void f(int a, [[maybe_unused]] int b) { // OK: b no usado
+  [[maybe_unused]] int z = 0; // OK: z no usado 
+  return a *2;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}

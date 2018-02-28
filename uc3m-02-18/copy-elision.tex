@@ -1,0 +1,36 @@
+\subsection{Elusión de copia}
+
+\begin{frame}[t]{Eludiendo copias temporales}
+\begin{itemize}
+  \item El estándar \textmark{permite evitar} copias intermedias en algunso casos:
+    \begin{itemize}
+      \item Cuando se inicia un objeto con otro objeto temporal.
+      \item Cuando se devuelve una variable local.
+      \item Cuando se captura una excepción por valor.
+    \end{itemize}
+  \vfill\pause
+  \item Pero:
+    \begin{itemize}
+      \item Es una optimización opcional.
+      \item Hace falta definir constructores de copia por si el compilador no optimiza.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Ejemplo de elusión}
+\begin{lstlisting}
+class X {
+public:
+  X(int n);
+  X(const X &) = delete;
+  X(X &&) = delete;
+  //...
+};
+
+X make_x(int z) { return X{z}; }
+
+void f() {
+  auto a = make_x(10); // Sin copias
+}
+\end{lstlisting}
+\end{frame}

@@ -1,0 +1,83 @@
+\subsection{Vinculación estructurada}
+
+\begin{frame}[t,fragile]{Múltiples valores de retorno}
+\begin{itemize}
+  \item En C++14, se pueden gestionar múltiples valores de retorno con
+        \cppid{std::tuple} y \cppid{std::tie}.
+\begin{lstlisting}
+std::tuple<int, string, bool> f() {
+  return make_tuple(1, "hola", false);
+}
+
+void g() {
+  int n;
+  std::string msg;
+  bool result;
+ 
+  std::tie(n, msg, result) = f();
+  //...
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Vinculación estructurada}
+\begin{itemize}
+  \item En C++17, se introducen las \textmark{vinculaciones estructuradas}:
+\begin{lstlisting}
+std::tuple<int, string, bool> f() {
+  return make_tuple(1, "hola", false);
+}
+
+void g() {
+  auto [n, msg, result] = f();
+  //...
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Otras vinculaciones estructuradas}
+\begin{itemize}
+  \item Las vinculaciones estructuradas no están limitadas a tuplas.
+    \begin{itemize}
+      \item Arrays:
+\begin{lstlisting}
+double v[] = {1, 2, 3};
+auto [a,b,c] = v;
+\end{lstlisting}
+
+      \vfill\pause
+      \item Para cualquier tipo que soporte \cppid{tuple\_size<>} y \cppid{get<N>()}
+            (p. ej. \cppid{std::pair}).
+\begin{lstlisting}
+pair<int,string> f();
+
+auto [x,y] = f();
+\end{lstlisting}
+
+      \vfill\pause
+      \item Estructuras sin datos miembro estáticos.
+\begin{lstlisting}
+struct X { int a; double b; char c; };
+X f();
+const auto [x,y,z] = f();
+\end{lstlisting}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Combinando vinculaciones estructuradas y bucles de rango}
+\begin{itemize}
+  \item Se pueden combinar las vinculaciones estructuradas con el uso
+        de bucles for basados en rango.
+\begin{lstlisting}
+std::map<int, std::string> dic;
+//...
+for (auto & [id, nombre] : dic) {
+  cout << "Id: " << id << "\n";
+  cout << "Nombre: " << nombre << "\n";
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}

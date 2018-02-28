@@ -1,0 +1,35 @@
+\subsection{Visión general}
+
+\begin{frame}[t]{¿Qué algoritmos se incluyen?}
+\begin{itemize}
+  \item La biblioteca de algoritmos paralelos incluye la mayor parte
+        de los algoritmos de la STL.
+  \item En todos los casos se añade un parámetro adicional para indicar
+        la política de ejecución.
+    \begin{itemize}
+      \item Este parámetro se coloca el primero.
+    \end{itemize}
+  \item Hay algoritmos de la STL que pueden no estar.
+    \begin{itemize}
+      \item Ejemplo \cppid{accumulate}.
+    \end{itemize}
+  \item Hay algoritmos que no provienen de la STL.
+    \begin{itemize}
+      \item Ejemplo: \cppid{exclusive\_scan}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Buscando en una secuencia}
+\begin{block}{Ejemplos}
+\begin{lstlisting}g
+vector<int> v = get_values_vector();
+count_if(par, begin(v), end(v), 
+  [](int x) { return x>0; });
+auto p = find(par, begin(v), end(v), 0);
+auto q = find_if(par, begin(v), end(v),
+  [](int x) { return (x>0) && (x<10); }
+\end{lstlisting}
+\end{block}
+\end{frame}
+

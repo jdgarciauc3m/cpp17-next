@@ -1,0 +1,86 @@
+\subsection{Variables inline}
+
+\begin{frame}[t]{Variables \textbf{inline}}
+\begin{itemize}
+  \item Una variable marcada como \cppkey{inline}:
+    \begin{itemize}
+      \item Puede aparecer en varias unidades de traducción si tiene
+            la misma definición.
+        \begin{itemize}
+          \pause
+          \item Permite poner la definición en un archivo de cabecera.
+        \end{itemize}
+      \pause
+      \item Debe estar definida en cada unidad de traducción en la que
+            se usa.
+      \pause
+      \item Hay una única instancia.
+    \end{itemize}
+
+  \vfill\pause
+  \item Los datos miembro que sean \cppkey{constexpr} y \cppkey{static} son
+        implícitamente \cppkey{inline}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Constantes en C++14}
+\begin{columns}[T]
+
+\column{.5\textwidth}
+
+\begin{block}{tabla.h}
+\begin{lstlisting}
+static constexpr max_elem = 4096;
+
+class tabla {
+  //...
+private:
+  static constexpr max_valor = 1000000;
+  //...
+};
+\end{lstlisting}
+\end{block}
+
+\column{.5\textwidth}
+\begin{block}{tabla.cpp}
+\begin{lstlisting}
+static constexpr max_elem;
+static constexpr tabla::max_valor;
+\end{lstlisting}
+\end{block}
+
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[t,fragile]{Constantes en C++17}
+\begin{columns}[T]
+
+\column{.5\textwidth}
+
+\begin{block}{tabla.h}
+\begin{lstlisting}
+inline static constexpr max_elem = 4096;
+
+class tabla {
+  //...
+private:
+  // Implícitament einline
+  static constexpr max_valor = 1000000;
+  //...
+};
+\end{lstlisting}
+\end{block}
+
+\column{.5\textwidth}
+\begin{block}{tabla.cpp}
+\begin{lstlisting}
+// Sin definiciones de constantes
+// ...
+\end{lstlisting}
+\end{block}
+ 
+\end{columns}
+\end{frame}
+
+

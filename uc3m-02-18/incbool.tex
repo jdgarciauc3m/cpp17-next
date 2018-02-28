@@ -1,0 +1,20 @@
+\subsection{Incremento de booleanos}
+
+\begin{frame}[t,fragile]{Eliminando \textbf{\texttt{operator++(bool)}}}
+\begin{itemize}
+  \item El operador \cppkey{++} sobre valores \cppkey{bool} ha estado
+        \textmark{despreciado} desde C++98.
+\vfill
+\begin{block}{Usando el operador ++}
+\begin{lstlisting}
+bool x = false;
+x++; // x == true
+x++; // x == true
+if (x++) do_whatever();
+if (std::exchange(x,true)) do_whatever();
+\end{lstlisting}
+\end{block}
+\vfill
+  \item Se elimina de C++17
+\end{itemize}
+\end{frame}

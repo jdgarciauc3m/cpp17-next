@@ -1,0 +1,76 @@
+\subsection{Deducción de argumentos de plantilla de clase}
+
+\begin{frame}[t,fragile]{Deducción de argumentos de función}
+\begin{itemize}
+  \item En C++ siempre se deducen argumentos de plantilla implícitamente.
+\begin{lstlisting}
+template <typename T>
+void f(T & x);
+
+void g() {
+  f(2); // f<int>(2)
+  f(1.0); // f<double>(1.0)
+   
+  complex<float> z;
+  f(z);  // f<complex<float>>(z);
+
+  vector<map<int,string>> v;
+  f(v); // f<vector<map<int,string>>>
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Deduccion de argumentos de clase}
+\begin{itemize}
+  \item Sin embargo, para clases \ldots
+\begin{lstlisting}
+void g() {
+  std::pair<int,string> p{1969, "Daniel"};
+
+  auto q = std::make_pair(1950, "Bjarne");
+
+  std::pair r{1955, "James"}; // Error faltan argumentos de plantilla
+}
+\end{lstlisting}
+
+  \vfill
+  \item No se pueden deducir los argumentos de plantilla en constructor.
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Deducción de argumentos}
+\begin{itemize}
+  \item En C++17 se pueden deducir los argumentos de plantilla de clase.
+\begin{lstlisting}
+std::pair p{1969, "Daniel"s}; // std::pair<int,std::string>
+
+std::map<int,double> create_dic();
+// std::tuple<int, double, std::map<int,double>>
+std::tuple q{1, 2.5, create_dic()};
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Simplificación de código}
+\begin{itemize}
+  \item Sin deducción:
+\begin{lstlisting}
+std::mutex m1;
+std::recursive_mutex m2;
+std::shared_lock<std::recursive_mutex> sl{m2};
+std::lock_guard<std::mutex, std::shared_lock<std::recursive_mutex>> l{m1,s1};
+\end{lstlisting}
+
+  \vfill\pause
+  \item Con deducción en C++17:
+\begin{lstlisting}
+std::mutex m1;
+std::recursive_mutex m2;
+std::shared_lock sl{m2};
+std::lock_guard l{m1,s1};
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}

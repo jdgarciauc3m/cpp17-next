@@ -1,0 +1,46 @@
+\subsection{Políticas de ejecución}
+
+\begin{frame}[t]{Introducción}
+\begin{itemize}
+  \item Una \textbf{Política de ejecución} indica el tipo de paralelismo
+        que se permite en la ejecución de un algoritmo.
+    \begin{itemize}
+      \item \textbf{Secuencial}: Sin paralelizar.
+        \begin{itemize}
+          \item Tipo: \cppid{std::execution::sequenced\_policy}
+          \item Objeto global: \cppid{std::execution::seq}.
+        \end{itemize}
+      \item \textbf{Paralelo}: Paralelizado.
+        \begin{itemize}
+          \item Tipo: \cppid{std::execution::parallel\_policy}.
+          \item Objeto global: \cppid{std::execution::par}.
+        \end{itemize}
+      \item \textbf{Paralelo + Vector}: Paralelizado y vectorizado.
+        \begin{itemize}
+          \item Tipo: \cppid{std::execution::parallel\_unsequenced\_policy}.
+          \item Objeto global: \cppid{std::execution::par\_unseq}.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t,fragile]{Versiones de algoritmos}
+\begin{itemize}
+  \item Todos los algoritmos paralelos toman como primer parámetro una política
+        de ejecución.
+\end{itemize}
+\begin{block}{Ejemplo: ordenando un vector}
+\begin{lstlisting}
+using namespace std;
+vector<double> v = read_values();
+sort(v.begin(), v.end());
+
+using namespace std::execution;
+
+sort(seq, v.begin(), v.end()); // Secuencial
+sort(par, v.begin(), v.end()); // Paralelo
+sort(par_unseq, v.begin(), v.end()); // Paralelo+Vect
+\end{lstlisting}
+\end{block}
+\end{frame}
+
