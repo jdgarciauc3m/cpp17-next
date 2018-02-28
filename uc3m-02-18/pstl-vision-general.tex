@@ -1,5 +1,3 @@
-\subsection{Visión general}
-
 \begin{frame}[t]{¿Qué algoritmos se incluyen?}
 \begin{itemize}
   \item La biblioteca de algoritmos paralelos incluye la mayor parte
@@ -20,15 +18,23 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}[t,fragile]{Buscando en una secuencia}
+\begin{frame}[t,fragile]{Ejemplo: Buscando en una secuencia}
 \begin{block}{Ejemplos}
-\begin{lstlisting}g
+\begin{lstlisting}[escapechar=@]
 vector<int> v = get_values_vector();
+
+// Cuenta números positivos
 count_if(par, begin(v), end(v), 
   [](int x) { return x>0; });
-auto p = find(par, begin(v), end(v), 0);
+
+@\pause@
+// Busca la primera aparición del número
+auto p = find(par, begin(v), end(v), 42);
+
+@\pause@
+// Busca la primera aparición un numero entre 0 y 10
 auto q = find_if(par, begin(v), end(v),
-  [](int x) { return (x>0) && (x<10); }
+  [](int x) { return (x>=0) && (x<=10); }
 \end{lstlisting}
 \end{block}
 \end{frame}
